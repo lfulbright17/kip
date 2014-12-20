@@ -1,11 +1,11 @@
 #include <MeggyJrSimple.h>
 
-int dir = 0;
-
+/*
 struct Point
 {
  int x;
  int y;
+
 };
 
 Point p1 = {2, 0};
@@ -22,29 +22,80 @@ Point p11 = {3, 3};
 Point p12 = {2, 4};
 Point p13 = {3, 4};
 Point p14 = {3, 5};
+
+Point p15 = {4, 0};
+Point p16 = {5, 0};
+Point p17 = {4, 1};
+Point p18 = {5, 1};
+Point p19 = {6, 1};
+Point p20 = {4, 2};
+Point p21 = {5, 2};
+Point p22 = {6, 2};
+Point p23 = {4, 3};
+Point p24 = {5, 3};
+Point p25 = {6, 3};
+Point p26 = {4, 4};
+Point p27 = {5, 4};
+Point p28 = {4, 5};
+
 Point LeftEggArray[64] = 
 {
-  p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p14
+  p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14
 };
 
-int marker = 14;
+Point RightEggArray[64] = 
+{
+  p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28
+};
+
+int marker = 28;
+
+*/
 
 void setup()                    // run once, when the sketch starts
 {
   MeggyJrSimpleSetup();   // Required code, line 2 of 2.
+  Serial.begin(9600);
 }
 
 void loop()                     // run over and over again
-{
+{     
   start();
     DisplaySlate();
     delay(500);
-    ClearSlate();
-  lefteggarray();
+  eggjump();
+    DisplaySlate();
+     delay(500);
+  start();
     DisplaySlate();
     delay(500);
-    ClearSlate();
-  LeftEggArray[0].x--;
+  eggjump();
+    DisplaySlate();
+     delay(500); 
+  eggjump();
+    DisplaySlate();
+     delay(500);  
+  adolescent();
+    DisplaySlate();
+     delay(500);
+  
+  
+  /*
+   splitegg();
+    delay(500);
+    DisplaySlate();
+  
+  for (int m=0; m<14; m++)//m is the number of points in the array
+  {
+     LeftEggArray[m].x--; //moving the blob to the left, off the screen
+  }
+  for (int n=0; n<14; n++)
+  {
+     RightEggArray[n].x++;
+  }
+  */
+  
+
 }
 
 void start()
@@ -82,16 +133,23 @@ void start()
   DrawPx(4, 5, White);
 }
 
-void lefteggarray()
+/*
+void splitegg()
 {
-  for(int i= 0; i<8; i++)
-  for(int m= 0; m<8; m++)
-  DrawPx(i, m, Blue);
-  for (int i=0; i<marker; i++)
-    {
-      DrawPx(LeftEggArray[i].x, LeftEggArray[i].y, DimAqua);
-    }
+  for(int c= 0; c<8; c++)
+    for(int d= 0; d<8; d++)
+      DrawPx(c, d, Blue);
+  for (int l=0; l<14; l++)
+  {
+    DrawPx(LeftEggArray[l].x, LeftEggArray[l].y, White);
+  }//thank you elana for helping me compress my code with i!!!
+  for (int r=0; r<14; r++)
+  {
+    DrawPx(RightEggArray[r].x, RightEggArray[r].y, White);
+  }
 }
+*/
+
 
 void eggjump()
 {
