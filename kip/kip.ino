@@ -1,5 +1,19 @@
 #include <MeggyJrSimple.h>
 
+int level = 1; //level 1 is intro through adolescent
+int state = 0; //no buttons being pressed
+int food1xcoord = 6;
+int food1ycoord = 0;
+int food2xcoord = 7;
+int food2ycoord = 0;
+int water1xcoord = 6;
+int water1ycoord = 0;
+int water2xcoord = 7;
+int water2ycoord = 0;
+int foodscore = 7;
+int waterscore = 7;
+
+
 /*
 struct Point
 {
@@ -56,28 +70,222 @@ void setup()                    // run once, when the sketch starts
 {
   MeggyJrSimpleSetup();   // Required code, line 2 of 2.
   Serial.begin(9600);
+  start();
+  start();
+  delay(500);
 }
 
 void loop()                     // run over and over again
-{     
-  start();
-    DisplaySlate();
-    delay(500);
-  eggjump();
-    DisplaySlate();
-     delay(500);
-  start();
-    DisplaySlate();
-    delay(500);
-  eggjump();
-    DisplaySlate();
-     delay(500); 
-  eggjump();
-    DisplaySlate();
-     delay(500);  
-  adolescent();
-    DisplaySlate();
-     delay(500);
+{ 
+  CheckButtonsPress();
+      if (Button_A)
+        state=1;
+      if (Button_A)
+        foodscore--;
+      if(level==1)
+        {
+          if(state==1)
+          {
+            eating1();
+             DisplaySlate();
+             delay(100);  
+            eating2();
+             DisplaySlate();
+             delay(100);
+            eating3();
+             DisplaySlate();
+             delay(200);
+            eating2();
+             DisplaySlate();
+             delay(200);
+            eating3();
+             DisplaySlate();
+             delay(200);
+            eating2();
+             DisplaySlate();
+             delay(100);
+            eating3();
+             DisplaySlate();
+             delay(200);
+            eating2();
+             DisplaySlate();
+             delay(100);
+            eating3();
+             DisplaySlate();
+             delay(200);
+            eating2();
+             DisplaySlate();
+             delay(100);
+            eating1();
+             DisplaySlate();
+             delay(100);
+            ClearSlate();
+            state=0;
+          }
+        }
+      if(level==2)
+        {
+          if(state==1)
+          {
+            eating4();
+             DisplaySlate();
+             delay(100);  
+            eating5();
+             DisplaySlate();
+             delay(100);
+            eating6();
+             DisplaySlate();
+             delay(200);
+            eating5();
+             DisplaySlate();
+             delay(200);
+            eating6();
+             DisplaySlate();
+             delay(200);
+            eating5();
+             DisplaySlate();
+             delay(100);
+            eating6();
+             DisplaySlate();
+             delay(200);
+            eating5();
+             DisplaySlate();
+             delay(100);
+            eating6();
+             DisplaySlate();
+             delay(200);
+            eating5();
+             DisplaySlate();
+             delay(100);
+            eating4();
+             DisplaySlate();
+             delay(100);
+            ClearSlate();
+            state=0;
+          }
+        }
+      if (Button_B)
+        state=2;
+      if (Button_B)
+        waterscore--;
+      if(level==1)
+        {
+          if(state==2)
+          {
+            eating1();
+             DisplaySlate();
+             delay(100);  
+            eating2();
+             DisplaySlate();
+             delay(100);
+            eating3();
+             DisplaySlate();
+             delay(200);
+            eating2();
+             DisplaySlate();
+             delay(200);
+            eating3();
+             DisplaySlate();
+             delay(200);
+            eating2();
+             DisplaySlate();
+             delay(100);
+            eating3();
+             DisplaySlate();
+             delay(200);
+            eating2();
+             DisplaySlate();
+             delay(100);
+            eating3();
+             DisplaySlate();
+             delay(200);
+            eating2();
+             DisplaySlate();
+             delay(100);
+            eating1();
+             DisplaySlate();
+             delay(100);
+            ClearSlate();
+            state=0;
+          }
+        }
+      if(level==2)
+        {
+          if(state==2)
+          {
+            eating4();
+             DisplaySlate();
+             delay(100);  
+            eating5();
+             DisplaySlate();
+             delay(100);
+            eating6();
+             DisplaySlate();
+             delay(200);
+            eating5();
+             DisplaySlate();
+             delay(200);
+            eating6();
+             DisplaySlate();
+             delay(200);
+            eating5();
+             DisplaySlate();
+             delay(100);
+            eating6();
+             DisplaySlate();
+             delay(200);
+            eating5();
+             DisplaySlate();
+             delay(100);
+            eating6();
+             DisplaySlate();
+             delay(200);
+            eating5();
+             DisplaySlate();
+             delay(100);
+            eating4();
+             DisplaySlate();
+             delay(100);
+            ClearSlate();
+            state=0;
+          }
+        }
+  
+  if(level==1)
+    {  
+      if((waterscore < 1)&&(foodscore < 1))
+      {
+        level=2;
+      }
+    }
+  if(level==2)
+    { 
+      if((waterscore < 1)&&(foodscore < 1))
+      {
+        //level=3;
+      }
+    } 
+    
+  if(level==1) 
+    {
+      adolescent();
+      DisplaySlate();
+    }
+  if(level==2) 
+    {
+      adult();
+      DisplaySlate();
+      foodscore==11;
+      waterscore==11;
+    }
+    
+  
+}
+    
+  
+  
+  
+  
   
   
   /*
@@ -95,8 +303,6 @@ void loop()                     // run over and over again
   }
   */
   
-
-}
 
 void start()
 {
@@ -131,6 +337,12 @@ void start()
   DrawPx(5, 4, White);
   DrawPx(3, 5, White);
   DrawPx(4, 5, White);
+    DisplaySlate();
+      delay(500);
+  eggjump();
+    DisplaySlate();
+      delay(500);
+ 
 }
 
 /*
@@ -233,10 +445,232 @@ void adolescent()
   DrawPx(5, 3, Yellow);
   DrawPx(4, 4, Yellow);
   DrawPx(5, 4, Yellow);
-  DrawPx(6, 4, Yellow);
+  DrawPx(6, 4, Orange);
   DrawPx(4, 5, Yellow);
   DrawPx(5, 5, Yellow);
 }
+
+void eating1() // first motion for feeding/drinking 
+{
+  for(int i= 0; i<8; i++)
+  for(int m= 0; m<8; m++)
+  DrawPx(i, m, Blue);
+  DrawPx(3, 0, Orange);
+  DrawPx(2, 1, Yellow);
+  DrawPx(3, 1, Yellow);
+  DrawPx(4, 1, Yellow);
+  DrawPx(1, 2, Yellow);
+  DrawPx(2, 2, Yellow);
+  DrawPx(3, 2, Yellow);
+  DrawPx(4, 2, Yellow);
+  DrawPx(5, 2, Yellow);
+  DrawPx(2, 3, Yellow);
+  DrawPx(3, 3, Yellow);
+  DrawPx(4, 3, Yellow);
+  DrawPx(5, 3, Yellow);
+  DrawPx(6, 3, Orange);
+  DrawPx(5, 4, Yellow);
+  DrawPx(6, 4, Yellow);
+  DrawPx(5, 5, Yellow);
+  DrawPx(6, 5, Yellow);
+   if(state==1)
+     {
+       DrawPx(food1xcoord, food1ycoord, Green);
+       DrawPx(food2xcoord, food2ycoord, Green);
+     }
+   if(state==2)
+     {
+       DrawPx(water1xcoord, water1ycoord, DimAqua);
+       DrawPx(water2xcoord, water2ycoord, DimAqua);
+     }
+}
+
+void eating2() // second motion for feeding/drinking as adolescent
+{
+  for(int i= 0; i<8; i++)
+  for(int m= 0; m<8; m++)
+  DrawPx(i, m, Blue);
+  DrawPx(3, 0, Orange);
+  DrawPx(2, 1, Yellow);
+  DrawPx(3, 1, Yellow);
+  DrawPx(4, 1, Yellow);
+  DrawPx(1, 2, Yellow);
+  DrawPx(2, 2, Yellow);
+  DrawPx(3, 2, Yellow);
+  DrawPx(4, 2, Yellow);
+  DrawPx(5, 2, Yellow);
+  DrawPx(6, 2, Orange);
+  DrawPx(2, 3, Yellow);
+  DrawPx(3, 3, Yellow);
+  DrawPx(4, 3, Yellow);
+  DrawPx(5, 3, Yellow);
+  DrawPx(6, 3, Yellow);
+  DrawPx(7, 3, Yellow);
+  DrawPx(6, 4, Yellow);
+  DrawPx(7, 4, Yellow);
+    if(state==1)
+     {
+       DrawPx(food1xcoord, food1ycoord, Green);
+       DrawPx(food2xcoord, food2ycoord, Green);
+     }
+   if(state==2)
+     {
+       DrawPx(water1xcoord, water1ycoord, DimAqua);
+       DrawPx(water2xcoord, water2ycoord, DimAqua);
+     }
+}
+
+void eating3() // third motion for feeding/drinking as adolescent
+{
+  for(int i= 0; i<8; i++)
+  for(int m= 0; m<8; m++)
+  DrawPx(i, m, Blue);
+  DrawPx(3, 0, Orange);
+  DrawPx(2, 1, Yellow);
+  DrawPx(3, 1, Yellow);
+  DrawPx(4, 1, Yellow);
+  DrawPx(6, 1, Orange);
+  DrawPx(1, 2, Yellow);
+  DrawPx(2, 2, Yellow);
+  DrawPx(3, 2, Yellow);
+  DrawPx(4, 2, Yellow);
+  DrawPx(5, 2, Yellow);
+  DrawPx(6, 2, Yellow);
+  DrawPx(7, 2, Yellow);
+  DrawPx(2, 3, Yellow);
+  DrawPx(3, 3, Yellow);
+  DrawPx(4, 3, Yellow);
+  DrawPx(5, 3, Yellow);
+  DrawPx(6, 3, Yellow);
+  DrawPx(7, 3, Yellow);
+    if(state==1)
+     {
+       DrawPx(food1xcoord, food1ycoord, Green);
+       DrawPx(food2xcoord, food2ycoord, Green);
+     }
+   if(state==2)
+     {
+       DrawPx(water1xcoord, water1ycoord, DimAqua);
+       DrawPx(water2xcoord, water2ycoord, DimAqua);
+     }
+}
+
+void eating4() // first motion for feeding/drinking as adult
+{
+  for(int i= 0; i<8; i++)
+  for(int m= 0; m<8; m++)
+  DrawPx(i, m, Blue);
+  DrawPx(3, 0, Orange);
+  DrawPx(2, 1, White);
+  DrawPx(3, 1, White);
+  DrawPx(4, 1, White);
+  DrawPx(1, 2, White);
+  DrawPx(2, 2, White);
+  DrawPx(3, 2, White);
+  DrawPx(4, 2, White);
+  DrawPx(5, 2, Red);
+  DrawPx(1, 3, White);
+  DrawPx(2, 3, White);
+  DrawPx(3, 3, White);
+  DrawPx(4, 3, White);
+  DrawPx(5, 3, Red);
+  DrawPx(6, 3, Yellow);
+  DrawPx(1, 4, White);
+  DrawPx(5, 4, White);
+  DrawPx(6, 4, White);
+  DrawPx(5, 5, White);
+  DrawPx(6, 5, White);
+  DrawPx(5, 6, Red);
+  DrawPx(6, 6, Red);
+  if(state==1)
+     {
+       DrawPx(food1xcoord, food1ycoord, Green);
+       DrawPx(food2xcoord, food2ycoord, Green);
+     }
+   if(state==2)
+     {
+       DrawPx(water1xcoord, water1ycoord, DimAqua);
+       DrawPx(water2xcoord, water2ycoord, DimAqua);
+     }
+}
+
+void eating5() // second motion for feeding/drinking as adult
+{
+  for(int i= 0; i<8; i++)
+  for(int m= 0; m<8; m++)
+  DrawPx(i, m, Blue);
+  DrawPx(3, 0, Orange);
+  DrawPx(2, 1, White);
+  DrawPx(3, 1, White);
+  DrawPx(4, 1, White);
+  DrawPx(5, 1, Red);
+  DrawPx(1, 2, White);
+  DrawPx(2, 2, White);
+  DrawPx(3, 2, White);
+  DrawPx(4, 2, White);
+  DrawPx(5, 2, Red);
+  DrawPx(6, 2, Yellow);
+  DrawPx(1, 3, White);
+  DrawPx(2, 3, White);
+  DrawPx(3, 3, White);
+  DrawPx(4, 3, White);
+  DrawPx(5, 3, White);
+  DrawPx(6, 3, White);
+  DrawPx(1, 4, White);
+  DrawPx(5, 4, White);
+  DrawPx(6, 4, White);
+  DrawPx(5, 5, Red);
+  DrawPx(6, 5, Red);
+  if(state==1)
+     {
+       DrawPx(food1xcoord, food1ycoord, Green);
+       DrawPx(food2xcoord, food2ycoord, Green);
+     }
+   if(state==2)
+     {
+       DrawPx(water1xcoord, water1ycoord, DimAqua);
+       DrawPx(water2xcoord, water2ycoord, DimAqua);
+     }
+}
+
+void eating6() // third motion for feeding/drinking as adult
+{
+  for(int i= 0; i<8; i++)
+  for(int m= 0; m<8; m++)
+  DrawPx(i, m, Blue);
+  DrawPx(3, 0, Orange);
+  DrawPx(2, 1, White);
+  DrawPx(3, 1, White);
+  DrawPx(4, 1, Red);
+  DrawPx(5, 1, Red);
+  DrawPx(6, 1, Yellow);
+  DrawPx(1, 2, White);
+  DrawPx(2, 2, White);
+  DrawPx(3, 2, White);
+  DrawPx(4, 2, White);
+  DrawPx(5, 2, White);
+  DrawPx(6, 2, White);
+  DrawPx(1, 3, White);
+  DrawPx(2, 3, White);
+  DrawPx(3, 3, White);
+  DrawPx(4, 3, White);
+  DrawPx(5, 3, White);
+  DrawPx(6, 3, White);
+  DrawPx(1, 4, White);
+  DrawPx(5, 4, Red);
+  DrawPx(6, 4, Red);
+  if(state==1)
+     {
+       DrawPx(food1xcoord, food1ycoord, Green);
+       DrawPx(food2xcoord, food2ycoord, Green);
+     }
+   if(state==2)
+     {
+       DrawPx(water1xcoord, water1ycoord, DimAqua);
+       DrawPx(water2xcoord, water2ycoord, DimAqua);
+     }
+}
+
 
 void adult()
 {
@@ -256,13 +690,16 @@ void adult()
   DrawPx(2, 3, White);
   DrawPx(3, 3, White);
   DrawPx(4, 3, White);
-  DrawPx(5, 3, White);
-  DrawPx(6, 3, Yellow);
+  DrawPx(5, 3, Red);
   DrawPx(1, 4, White);
   DrawPx(4, 4, White);
   DrawPx(5, 4, White);
-  DrawPx(4, 5, Red);
-  DrawPx(5, 5, Red);
+  DrawPx(6, 4, Yellow);
+  DrawPx(4, 5, White);
+  DrawPx(5, 5, White);
+  DrawPx(4, 6, Red);
+  DrawPx(5, 6, Red);
+  
 }
 
 void sittingadult()
@@ -270,10 +707,10 @@ void sittingadult()
   for(int i= 0; i<8; i++)
   for(int m= 0; m<8; m++)
   DrawPx(i, m, Blue);
-  DrawPx(2, 0, Orange);
-  DrawPx(3, 0, Orange);
-  DrawPx(4, 0, Orange);
-  DrawPx(1, 1, Orange);
+  DrawPx(2, 0, White);
+  DrawPx(3, 0, White);
+  DrawPx(4, 0, White);
+  DrawPx(1, 1, White);
   DrawPx(2, 1, White);
   DrawPx(3, 1, White);
   DrawPx(4, 1, White);
@@ -287,8 +724,8 @@ void sittingadult()
   DrawPx(1, 3, White);
   DrawPx(4, 3, White);
   DrawPx(5, 3, White);
-  DrawPx(4, 4, White);
-  DrawPx(5, 4, White);
+  DrawPx(4, 4, Red);
+  DrawPx(5, 4, Red);
 }
 
 
@@ -375,22 +812,6 @@ void laidegghatches()
   DrawPx(4, 5, Red);
   DrawPx(5, 5, Red);
 }
-
-void food()
-
-{
-  DrawPx(6, 0, Green);
-  DrawPx(7, 0, Green);
-}
-
-void Water()
-
-{
-  DrawPx(6, 0, Blue);
-  DrawPx(7, 0, Blue);
-}
-
-
 
 
 /* 
