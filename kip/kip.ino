@@ -14,7 +14,7 @@ int foodscore = 1;
 int waterscore = 1;
 int foodscore2 = 1;
 int waterscore2 = 1;
-
+int lights = 2;
 
 
 struct Point
@@ -59,13 +59,15 @@ void setup()                    // run once, when the sketch starts
 {
   MeggyJrSimpleSetup();   // Required code, line 2 of 2.
   Serial.begin(9600);
-  //start();
-  //start();
-  //delay(500);
+  start();
+  start();
+  delay(500);
+  SetAuxLEDs(0);
 }
 
 void loop()                     // run over and over again
 { 
+  SetAuxLEDs(lights-1);
   Serial.print("level = ");
   Serial.println(level);
 
@@ -277,9 +279,6 @@ void loop()                     // run over and over again
       sittingadult();
       DisplaySlate();
       delay(1000);
-      //delay(300);
-      //DisplaySlate();
-      //ClearSlate();
       nolongermother();
       DisplaySlate();
       delay(700);
@@ -290,16 +289,19 @@ void loop()                     // run over and over again
     {
       mother();
       delay(700);
-      for (int m=0; m<22; m++)//m is the number of points in the array
+      for (int l=0; l<22; l++)
         {
-          GoodbyeArray[m].x++; //moving the blob to the left, off the screen
+          DrawPx(GoodbyeArray[l].x, GoodbyeArray[l].y, White); //NEED TO FIX THIS
+          GoodbyeArray[l].y++;
+          //if(GoodbyeArray[l].y > 7)   
         }
       DisplaySlate();
-      ClearSlate();
       delay(200);
+      ClearSlate(); 
       UpdateMother();
-      delay(800);
+      delay(300);
       level++;
+    
     }
     
   if(level==5) 
@@ -312,7 +314,32 @@ void loop()                     // run over and over again
       DisplaySlate();
       delay(500);
       ClearSlate();
-      delay(700);
+      buildegg1();
+      DisplaySlate();
+      delay(500);
+      buildegg2();
+      DisplaySlate();
+      delay(500);
+      buildegg3();
+      DisplaySlate();
+      delay(500);
+      buildegg4();
+      DisplaySlate();
+      delay(500);
+      buildegg5();
+      DisplaySlate();
+      delay(500);
+      start();
+      start();
+      delay(500);
+      DisplaySlate();
+      delay(500);
+      level=1;
+      lights *= 2;
+      waterscore=3;
+      foodscore=3;
+      waterscore2=5;
+      foodscore2=5;
         
     }
     
@@ -556,6 +583,121 @@ void movingegg2()
     for(int d= 0; d<8; d++)
       DrawPx(c, d, Blue);
   DrawPx(3, 0, White);
+}
+
+void buildegg1()
+{
+ 
+  for(int c= 0; c<8; c++)
+    for(int d= 0; d<8; d++)
+      DrawPx(c, d, Blue);
+  DrawPx(3, 0, White);
+  DrawPx(4, 0, White);
+  DrawPx(3, 1, White);
+  DrawPx(4, 1, White);
+  
+}
+
+void buildegg2()
+{
+ 
+  for(int c= 0; c<8; c++)
+    for(int d= 0; d<8; d++)
+      DrawPx(c, d, Blue);
+  DrawPx(2, 0, White);
+  DrawPx(3, 0, White);
+  DrawPx(4, 0, White);
+  DrawPx(5, 0, White);
+  DrawPx(2, 1, White);
+  DrawPx(3, 1, White);
+  DrawPx(4, 1, White);
+  DrawPx(5, 1, White);
+  
+}
+
+void buildegg3()
+{
+  for(int c= 0; c<8; c++)
+    for(int d= 0; d<8; d++)
+      DrawPx(c, d, Blue);
+  DrawPx(2, 0, White);
+  DrawPx(3, 0, White);
+  DrawPx(4, 0, White);
+  DrawPx(5, 0, White);
+  DrawPx(1, 1, White);
+  DrawPx(2, 1, White);
+  DrawPx(3, 1, White);
+  DrawPx(4, 1, White);
+  DrawPx(5, 1, White);
+  DrawPx(6, 1, White);
+  DrawPx(1, 2, White);
+  DrawPx(2, 2, White);
+  DrawPx(3, 2, White);
+  DrawPx(4, 2, White);
+  DrawPx(5, 2, White);
+  DrawPx(6, 2, White);
+}
+
+void buildegg4()
+{
+  for(int c= 0; c<8; c++)
+    for(int d= 0; d<8; d++)
+      DrawPx(c, d, Blue);
+  DrawPx(2, 0, White);
+  DrawPx(3, 0, White);
+  DrawPx(4, 0, White);
+  DrawPx(5, 0, White);
+  DrawPx(1, 1, White);
+  DrawPx(2, 1, White);
+  DrawPx(3, 1, White);
+  DrawPx(4, 1, White);
+  DrawPx(5, 1, White);
+  DrawPx(6, 1, White);
+  DrawPx(1, 2, White);
+  DrawPx(2, 2, White);
+  DrawPx(3, 2, White);
+  DrawPx(4, 2, White);
+  DrawPx(5, 2, White);
+  DrawPx(6, 2, White);
+  DrawPx(1, 3, White);
+  DrawPx(2, 3, White);
+  DrawPx(3, 3, White);
+  DrawPx(4, 3, White);
+  DrawPx(5, 3, White);
+  DrawPx(6, 3, White);
+}
+
+void buildegg5()
+{
+  for(int c= 0; c<8; c++)
+    for(int d= 0; d<8; d++)
+      DrawPx(c, d, Blue);
+  DrawPx(2, 0, White);
+  DrawPx(3, 0, White);
+  DrawPx(4, 0, White);
+  DrawPx(5, 0, White);
+  DrawPx(1, 1, White);
+  DrawPx(2, 1, White);
+  DrawPx(3, 1, White);
+  DrawPx(4, 1, White);
+  DrawPx(5, 1, White);
+  DrawPx(6, 1, White);
+  DrawPx(1, 2, White);
+  DrawPx(2, 2, White);
+  DrawPx(3, 2, White);
+  DrawPx(4, 2, White);
+  DrawPx(5, 2, White);
+  DrawPx(6, 2, White);
+  DrawPx(1, 3, White);
+  DrawPx(2, 3, White);
+  DrawPx(3, 3, White);
+  DrawPx(4, 3, White);
+  DrawPx(5, 3, White);
+  DrawPx(6, 3, White);
+  DrawPx(2, 4, White);
+  DrawPx(3, 4, White);
+  DrawPx(4, 4, White);
+  DrawPx(5, 4, White);
 }
 
 void nolongermother()
