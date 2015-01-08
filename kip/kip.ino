@@ -10,11 +10,13 @@ int water1xcoord = 6;
 int water1ycoord = 0;
 int water2xcoord = 7;
 int water2ycoord = 0;
-int foodscore = 7;
-int waterscore = 7;
+int foodscore = 1;
+int waterscore = 1;
+int foodscore2 = 1;
+int waterscore2 = 1;
 
 
-/*
+
 struct Point
 {
  int x;
@@ -22,69 +24,60 @@ struct Point
 
 };
 
-Point p1 = {2, 0};
-Point p2 = {3, 0};
-Point p3 = {1, 1};
-Point p4 = {2, 1};
-Point p5 = {3, 1};
-Point p6 = {1, 2};
-Point p7 = {2, 2};
-Point p8 = {3, 2};
-Point p9 = {1, 3};
-Point p10 = {2, 3};
-Point p11 = {3, 3};
-Point p12 = {2, 4};
-Point p13 = {3, 4};
-Point p14 = {3, 5};
+Point p1 = {3, 0};
+Point p2 = {2, 1};
+Point p3 = {3, 1};
+Point p4 = {4, 1};
+Point p5 = {1, 2};
+Point p6 = {2, 2};
+Point p7 = {3, 2};
+Point p8 = {4, 2};
+Point p9 = {5, 2};
+Point p10 = {1, 3};
+Point p11 = {2, 3};
+Point p12 = {3, 3};
+Point p13 = {4, 3};
+Point p14 = {5, 3};
+Point p15 = {1, 4};
+Point p16 = {4, 4};
+Point p17 = {5, 4};
+Point p18 = {6, 4};
+Point p19 = {4, 5};
+Point p20 = {5, 5};
+Point p21 = {4, 6};
+Point p22 = {5, 6};
 
-Point p15 = {4, 0};
-Point p16 = {5, 0};
-Point p17 = {4, 1};
-Point p18 = {5, 1};
-Point p19 = {6, 1};
-Point p20 = {4, 2};
-Point p21 = {5, 2};
-Point p22 = {6, 2};
-Point p23 = {4, 3};
-Point p24 = {5, 3};
-Point p25 = {6, 3};
-Point p26 = {4, 4};
-Point p27 = {5, 4};
-Point p28 = {4, 5};
 
-Point LeftEggArray[64] = 
+Point GoodbyeArray[64] = 
 {
-  p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14
+  p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22
 };
 
-Point RightEggArray[64] = 
-{
-  p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28
-};
-
-int marker = 28;
-
-*/
+int marker = 22;
 
 void setup()                    // run once, when the sketch starts
 {
   MeggyJrSimpleSetup();   // Required code, line 2 of 2.
   Serial.begin(9600);
-  start();
-  start();
-  delay(500);
+  //start();
+  //start();
+  //delay(500);
 }
 
 void loop()                     // run over and over again
 { 
+  Serial.print("level = ");
+  Serial.println(level);
+
+    
   CheckButtonsPress();
       if (Button_A)
         state=1;
-      if (Button_A)
+      if (Button_A)     
         foodscore--;
-      if(level==1)
+      if(level==1) //adolescent chicken
         {
-          if(state==1)
+          if(state==1) //when button a is pressed
           {
             eating1();
              DisplaySlate();
@@ -123,7 +116,7 @@ void loop()                     // run over and over again
             state=0;
           }
         }
-      if(level==2)
+      if(level==2) //adult chicken
         {
           if(state==1)
           {
@@ -162,6 +155,7 @@ void loop()                     // run over and over again
              delay(100);
             ClearSlate();
             state=0;
+            foodscore2--;
           }
         }
       if (Button_B)
@@ -248,9 +242,10 @@ void loop()                     // run over and over again
              delay(100);
             ClearSlate();
             state=0;
+            waterscore2--;
           }
         }
-  
+        
   if(level==1)
     {  
       if((waterscore < 1)&&(foodscore < 1))
@@ -258,11 +253,12 @@ void loop()                     // run over and over again
         level=2;
       }
     }
+  
   if(level==2)
     { 
-      if((waterscore < 1)&&(foodscore < 1))
+      if((waterscore2 < 1)&&(foodscore2 < 1))
       {
-        //level=3;
+        level=3; 
       }
     } 
     
@@ -275,12 +271,53 @@ void loop()                     // run over and over again
     {
       adult();
       DisplaySlate();
-      foodscore==11;
-      waterscore==11;
+    }
+  if(level==3) 
+    {
+      sittingadult();
+      DisplaySlate();
+      delay(1000);
+      //delay(300);
+      //DisplaySlate();
+      //ClearSlate();
+      nolongermother();
+      DisplaySlate();
+      delay(700);
+      level++;
+   
+    }
+  if(level==4) 
+    {
+      mother();
+      delay(700);
+      for (int m=0; m<22; m++)//m is the number of points in the array
+        {
+          GoodbyeArray[m].x++; //moving the blob to the left, off the screen
+        }
+      DisplaySlate();
+      ClearSlate();
+      delay(200);
+      UpdateMother();
+      delay(800);
+      level++;
     }
     
-  
+  if(level==5) 
+    {
+      movingegg1();
+      DisplaySlate();
+      delay(500);
+      ClearSlate();
+      movingegg2();
+      DisplaySlate();
+      delay(500);
+      ClearSlate();
+      delay(700);
+        
+    }
+    
 }
+    
     
   
   
@@ -345,8 +382,8 @@ void start()
  
 }
 
-/*
-void splitegg()
+
+/*void splitegg()
 {
   for(int c= 0; c<8; c++)
     for(int d= 0; d<8; d++)
@@ -355,10 +392,6 @@ void splitegg()
   {
     DrawPx(LeftEggArray[l].x, LeftEggArray[l].y, White);
   }//thank you elana for helping me compress my code with i!!!
-  for (int r=0; r<14; r++)
-  {
-    DrawPx(RightEggArray[r].x, RightEggArray[r].y, White);
-  }
 }
 */
 
@@ -448,6 +481,140 @@ void adolescent()
   DrawPx(6, 4, Orange);
   DrawPx(4, 5, Yellow);
   DrawPx(5, 5, Yellow);
+}
+
+
+
+void adult()
+{
+  for(int i= 0; i<8; i++)
+  for(int m= 0; m<8; m++)
+  DrawPx(i, m, Blue);
+  DrawPx(3, 0, Orange);
+  DrawPx(2, 1, White);
+  DrawPx(3, 1, White);
+  DrawPx(4, 1, White);
+  DrawPx(1, 2, White);
+  DrawPx(2, 2, White);
+  DrawPx(3, 2, White);
+  DrawPx(4, 2, White);
+  DrawPx(5, 2, Red);
+  DrawPx(1, 3, White);
+  DrawPx(2, 3, White);
+  DrawPx(3, 3, White);
+  DrawPx(4, 3, White);
+  DrawPx(5, 3, Red);
+  DrawPx(1, 4, White);
+  DrawPx(4, 4, White);
+  DrawPx(5, 4, White);
+  DrawPx(6, 4, Yellow);
+  DrawPx(4, 5, White);
+  DrawPx(5, 5, White);
+  DrawPx(4, 6, Red);
+  DrawPx(5, 6, Red);
+  
+}
+
+void mother()
+{
+ 
+  for(int c= 0; c<8; c++)
+    for(int d= 0; d<8; d++)
+      DrawPx(c, d, Blue);
+  DrawPx(1, 0, White);
+  for (int l=0; l<22; l++)
+    {
+      DrawPx(GoodbyeArray[l].x, GoodbyeArray[l].y, White); //NEED TO FIX THIS
+    }
+}
+    
+    //thank you elana for helping me compress my code with nested loops!!!
+     
+
+
+void UpdateMother()
+
+{
+  for(int i=marker-1; i > 0; i--){;
+    GoodbyeArray[i] = GoodbyeArray[i-1];
+    }
+} 
+
+void movingegg1()
+{
+ 
+  for(int c= 0; c<8; c++)
+    for(int d= 0; d<8; d++)
+      DrawPx(c, d, Blue);
+  DrawPx(2, 0, White);
+}
+
+void movingegg2()
+{
+ 
+  for(int c= 0; c<8; c++)
+    for(int d= 0; d<8; d++)
+      DrawPx(c, d, Blue);
+  DrawPx(3, 0, White);
+}
+
+void nolongermother()
+{
+  for(int i= 0; i<8; i++)
+  for(int m= 0; m<8; m++)
+  DrawPx(i, m, Blue);
+  DrawPx(3, 0, Orange);
+  DrawPx(2, 1, White);
+  DrawPx(3, 1, White);
+  DrawPx(4, 1, White);
+  DrawPx(1, 2, White);
+  DrawPx(2, 2, White);
+  DrawPx(3, 2, White);
+  DrawPx(4, 2, White);
+  DrawPx(5, 2, Red);
+  DrawPx(1, 3, White);
+  DrawPx(2, 3, White);
+  DrawPx(3, 3, White);
+  DrawPx(4, 3, White);
+  DrawPx(5, 3, Red);
+  DrawPx(1, 4, White);
+  DrawPx(4, 4, White);
+  DrawPx(5, 4, White);
+  DrawPx(6, 4, Yellow);
+  DrawPx(4, 5, White);
+  DrawPx(5, 5, White);
+  DrawPx(4, 6, Red);
+  DrawPx(5, 6, Red);
+  DrawPx(1, 0, White);
+  
+}
+
+void sittingadult()
+{
+  for(int i= 0; i<8; i++)
+  for(int m= 0; m<8; m++)
+  DrawPx(i, m, Blue);
+  DrawPx(2, 0, White);
+  DrawPx(3, 0, White);
+  DrawPx(4, 0, White);
+  DrawPx(1, 1, White);
+  DrawPx(2, 1, White);
+  DrawPx(3, 1, White);
+  DrawPx(4, 1, White);
+  DrawPx(5, 1, Red);
+  DrawPx(1, 2, White);
+  DrawPx(2, 2, White);
+  DrawPx(3, 2, White);
+  DrawPx(4, 2, White);
+  DrawPx(5, 2, White);
+  DrawPx(6, 2, Yellow);
+  DrawPx(1, 3, White);
+  DrawPx(4, 3, White);
+  DrawPx(5, 3, White);
+  DrawPx(4, 4, Red);
+  DrawPx(5, 4, Red);
+  delay(100);
+  DrawPx(1, 0, White);
 }
 
 void eating1() // first motion for feeding/drinking 
@@ -672,62 +839,7 @@ void eating6() // third motion for feeding/drinking as adult
 }
 
 
-void adult()
-{
-  for(int i= 0; i<8; i++)
-  for(int m= 0; m<8; m++)
-  DrawPx(i, m, Blue);
-  DrawPx(3, 0, Orange);
-  DrawPx(2, 1, White);
-  DrawPx(3, 1, White);
-  DrawPx(4, 1, White);
-  DrawPx(1, 2, White);
-  DrawPx(2, 2, White);
-  DrawPx(3, 2, White);
-  DrawPx(4, 2, White);
-  DrawPx(5, 2, Red);
-  DrawPx(1, 3, White);
-  DrawPx(2, 3, White);
-  DrawPx(3, 3, White);
-  DrawPx(4, 3, White);
-  DrawPx(5, 3, Red);
-  DrawPx(1, 4, White);
-  DrawPx(4, 4, White);
-  DrawPx(5, 4, White);
-  DrawPx(6, 4, Yellow);
-  DrawPx(4, 5, White);
-  DrawPx(5, 5, White);
-  DrawPx(4, 6, Red);
-  DrawPx(5, 6, Red);
-  
-}
-
-void sittingadult()
-{
-  for(int i= 0; i<8; i++)
-  for(int m= 0; m<8; m++)
-  DrawPx(i, m, Blue);
-  DrawPx(2, 0, White);
-  DrawPx(3, 0, White);
-  DrawPx(4, 0, White);
-  DrawPx(1, 1, White);
-  DrawPx(2, 1, White);
-  DrawPx(3, 1, White);
-  DrawPx(4, 1, White);
-  DrawPx(5, 1, Red);
-  DrawPx(1, 2, White);
-  DrawPx(2, 2, White);
-  DrawPx(3, 2, White);
-  DrawPx(4, 2, White);
-  DrawPx(5, 2, White);
-  DrawPx(6, 2, Yellow);
-  DrawPx(1, 3, White);
-  DrawPx(4, 3, White);
-  DrawPx(5, 3, White);
-  DrawPx(4, 4, Red);
-  DrawPx(5, 4, Red);
-}
-
+/*
 
 void eggbeinglaid()
 {
@@ -785,37 +897,7 @@ void eggislaid()
   DrawPx(5, 5, Red);
 }
 
-void laidegghatches()
-{
-  for(int i= 0; i<8; i++)
-  for(int m= 0; m<8; m++)
-  DrawPx(i, m, Blue);
-  DrawPx(0, 0, Yellow);
-  DrawPx(3, 0, Orange);
-  DrawPx(2, 1, White);
-  DrawPx(3, 1, White);
-  DrawPx(4, 1, White);
-  DrawPx(1, 2, White);
-  DrawPx(2, 2, White);
-  DrawPx(3, 2, White);
-  DrawPx(4, 2, White);
-  DrawPx(5, 2, Red);
-  DrawPx(1, 3, White);
-  DrawPx(2, 3, White);
-  DrawPx(3, 3, White);
-  DrawPx(4, 3, White);
-  DrawPx(5, 3, White);
-  DrawPx(6, 3, Yellow);
-  DrawPx(1, 4, White);
-  DrawPx(4, 4, White);
-  DrawPx(5, 4, White);
-  DrawPx(4, 5, Red);
-  DrawPx(5, 5, Red);
-}
-
-
-/* 
-pseudocode 
+pseudocode ----------------------------------
 
 
 intro:
